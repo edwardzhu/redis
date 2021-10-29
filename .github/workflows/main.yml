@@ -14,5 +14,5 @@ jobs:
         run: |
           VERSION=$(date +%s)
           docker login -u edzhu -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build . --file Dockerfile --tag redis:latest --tag redis:8 --tag redis:${VERSION}
+          docker build . --file Dockerfile --tag edzhu/redis:latest --tag edzhu/redis:8 --tag edzhu/redis:${VERSION}
           docker push -a edzhu/redis
