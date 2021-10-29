@@ -1,0 +1,18 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the docker image
+        run: |
+          VERSION=$(date +%s)
+          docker login -u edzhu -p ${{ secrets.DOCKER_PASSWORD }}
+          docker build . --file Dockerfile --tag redis:latest --tag redis:8 --tag redis:${VERSION}
+          docker push -a edzhu/redis
