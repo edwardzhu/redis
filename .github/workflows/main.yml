@@ -3,6 +3,8 @@ name: CI
 on:
   push:
     branches: [ master ]
+  workflow_dispatch:
+    branches: [ main ]
 
 jobs:
   build:
@@ -13,5 +15,5 @@ jobs:
       - name: Build the docker image
         run: |
           docker login -u edzhu -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build . --file Dockerfile --tag edzhu/redis:latest --tag edzhu/redis:8
+          docker build . --file Dockerfile --tag edzhu/redis:latest --tag edzhu/redis:${{ github.run_number }}
           docker push -a edzhu/redis
